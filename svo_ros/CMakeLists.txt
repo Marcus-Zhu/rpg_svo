@@ -61,12 +61,14 @@ LIST(APPEND LINK_LIBS
   ${catkin_LIBRARIES}
 )
 
-# Create visualizer library
-ADD_LIBRARY(svo_visualizer src/visualizer.cpp)
+# # Create visualizer library
+ADD_LIBRARY(svo_levelmap src/level_map.cpp)
+TARGET_LINK_LIBRARIES(svo_levelmap ${LINK_LIBS})
+ADD_LIBRARY(svo_visualizer src/visualizer.cpp src/level_map.cpp)
 TARGET_LINK_LIBRARIES(svo_visualizer ${LINK_LIBS})
                                  
 # Create Executables                      
 ADD_EXECUTABLE(vo src/vo_node.cpp)
 TARGET_LINK_LIBRARIES(vo svo_visualizer)
 ADD_EXECUTABLE(benchmark src/benchmark_node.cpp)
-TARGET_LINK_LIBRARIES(benchmark svo_visualizer)
+TARGET_LINK_LIBRARIES(benchmark svo_levelmap svo_visualizer)

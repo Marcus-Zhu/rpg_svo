@@ -32,6 +32,7 @@
 #include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>
 #include <iostream>
+#include <svo_ros/level_map.h>
 
 namespace svo {
 
@@ -45,6 +46,9 @@ typedef boost::shared_ptr<Frame> FramePtr;
 /// This class bundles all functions to publish visualisation messages.
 class Visualizer
 {
+private:
+  double max_x_, max_y_, max_z_;
+
 public:
   ros::NodeHandle pnh_;
   size_t trace_id_;
@@ -62,6 +66,7 @@ public:
   bool publish_map_every_frame_;
   ros::Duration publish_points_display_time_;
   SE3 T_world_from_vision_;
+  LevelMap level_map_;
 
   Visualizer();
 
